@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Diagnostics.Contracts;
 using System.Runtime.Serialization;
+using System.Web;
 using Microsoft.AspNet.OData.Builder;
 using Microsoft.AspNet.OData.Common;
 using Microsoft.AspNet.OData.Interfaces;
@@ -376,6 +377,7 @@ namespace Microsoft.AspNet.OData.Formatter.Serialization
                 // Non-Contained navigation.
                 navigationLink =
                     linkBuilder.BuildNavigationLink(writeContext.ExpandedResource, writeContext.NavigationProperty);
+                navigationLink = new Uri(HttpUtility.UrlDecode(navigationLink.AbsoluteUri));
             }
 
             Uri nestedNextLink = GenerateQueryFromExpandedItem(writeContext, navigationLink);
